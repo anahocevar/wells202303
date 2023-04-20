@@ -13,9 +13,9 @@ def query_db(depth_min, grad_min):
         FROM wells
         WHERE depth > {depth_min} AND gradient > {grad_min}
     """
-    conn = engine.connect()
-    results = conn.execute(query).fetchall()
-    conn.close()
+    with engine.connect() as conn:
+        results = conn.execute(query).fetchall()
+
     return results
 
 if __name__ == '__main__':
